@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: notification_service_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    ports:
+      - "4000:4000"
+    environment:
+      DATABASE_URL: ecto://postgres:postgres@postgres/notification_service_dev
+      SECRET_KEY_BASE: dev_secret_replace_in_prod_must_be_64_chars_min_aaaaabbbbcccc
+      PHX_HOST: localhost
+      PORT: "4000"
+      MIX_ENV: prod
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  pg_data:
