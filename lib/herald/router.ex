@@ -14,6 +14,6 @@ defmodule NotificationService.Router do
     post "/notifications/:id/requeue", NotificationController, :requeue
   end
 
-  get "/healthz", NotificationService.HealthController, :healthz
-  get "/readyz", NotificationService.HealthController, :readyz
+  get "/healthz", Herald.HealthController, :healthz
+  get "/readyz", Herald.HealthController, :readyz
 end
