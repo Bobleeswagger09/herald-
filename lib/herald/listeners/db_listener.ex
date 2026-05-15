@@ -50,7 +50,7 @@ defmodule NotificationService.DBListener do
     db_config = NotificationService.Repo.config()
 
     with {:ok, conn} <- Postgrex.Notifications.start_link(db_config),
-         {:ok, ref}  <- Postgrex.Notifications.listen(conn, @pg_channel) do
+         {:ok, ref} <- Postgrex.Notifications.listen(conn, @pg_channel) do
       Process.monitor(conn)
       {:ok, conn, ref}
     end

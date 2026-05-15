@@ -9,11 +9,11 @@ defmodule NotificationService.Router do
   scope "/api", NotificationService do
     pipe_through :api
 
-    post "/notifications",           NotificationController, :create
-    get  "/notifications",           NotificationController, :index
+    post "/notifications", NotificationController, :create
+    get "/notifications", NotificationController, :index
     post "/notifications/:id/requeue", NotificationController, :requeue
   end
 
   get "/healthz", NotificationService.HealthController, :healthz
-  get "/readyz",  NotificationService.HealthController, :readyz
+  get "/readyz", NotificationService.HealthController, :readyz
 end

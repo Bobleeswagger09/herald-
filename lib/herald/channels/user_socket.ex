@@ -9,7 +9,7 @@ defmodule NotificationService.UserSocket do
   def connect(%{"token" => token}, socket, _connect_info) do
     case Phoenix.Token.verify(socket, "user_socket", token, max_age: @max_age) do
       {:ok, user_id} -> {:ok, assign(socket, :user_id, user_id)}
-      {:error, _}    -> :error
+      {:error, _} -> :error
     end
   end
 

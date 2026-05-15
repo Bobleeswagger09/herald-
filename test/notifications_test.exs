@@ -18,6 +18,7 @@ defmodule NotificationService.NotificationsTest do
   test "fails without user_id" do
     assert {:error, changeset} =
              Notifications.create_notification(%{type: "message", title: "Hi"})
+
     assert %{user_id: ["can't be blank"]} = errors_on(changeset)
   end
 

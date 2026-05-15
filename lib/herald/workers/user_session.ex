@@ -14,7 +14,7 @@ defmodule NotificationService.Workers.UserSession do
   def find(user_id) do
     case Registry.lookup(NotificationService.SessionRegistry, user_id) do
       [{pid, _}] -> pid
-      []         -> nil
+      [] -> nil
     end
   end
 
@@ -74,7 +74,9 @@ defmodule NotificationService.Workers.UserSession do
 
   def handle_cast({:ack, notification_id}, state) do
     case state.pending_acks[notification_id] do
-      nil -> {:noreply, state}
+      nil ->
+        {:noreply, state}
+
       _ ->
         Notifications.get_notification!(notification_id) |> Notifications.mark_delivered()
         {:noreply, drop_pending(state, notification_id)}

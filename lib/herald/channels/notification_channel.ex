@@ -23,6 +23,7 @@ defmodule NotificationService.Channels.NotificationChannel do
             NotificationService.SessionSupervisor,
             {UserSession, %{user_id: user_id, channel_pid: self()}}
           )
+
       _pid ->
         UserSession.register_channel(user_id, self())
     end
@@ -57,12 +58,12 @@ defmodule NotificationService.Channels.NotificationChannel do
 
   defp encode(n) do
     %{
-      id:          n.id,
-      type:        n.type,
-      title:       n.title,
-      body:        n.body,
-      payload:     n.payload,
-      status:      n.status,
+      id: n.id,
+      type: n.type,
+      title: n.title,
+      body: n.body,
+      payload: n.payload,
+      status: n.status,
       inserted_at: DateTime.to_iso8601(n.inserted_at)
     }
   end

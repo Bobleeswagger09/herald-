@@ -7,8 +7,7 @@ defmodule NotificationService.Application do
       NotificationService.Repo,
       NotificationService.DBListener,
       {Phoenix.PubSub, name: NotificationService.PubSub},
-      {DynamicSupervisor,
-       name: NotificationService.SessionSupervisor, strategy: :one_for_one},
+      {DynamicSupervisor, name: NotificationService.SessionSupervisor, strategy: :one_for_one},
       NotificationService.Telemetry,
       NotificationService.Endpoint
     ]

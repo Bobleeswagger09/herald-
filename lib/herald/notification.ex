@@ -9,13 +9,13 @@ defmodule NotificationService.Notifications.Notification do
   @foreign_key_type :binary_id
 
   schema "notifications" do
-    field :user_id,      :binary_id
-    field :type,         :string
-    field :title,        :string
-    field :body,         :string
-    field :payload,      :map,     default: %{}
-    field :status,       :string,  default: "pending"
-    field :retry_count,  :integer, default: 0
+    field :user_id, :binary_id
+    field :type, :string
+    field :title, :string
+    field :body, :string
+    field :payload, :map, default: %{}
+    field :status, :string, default: "pending"
+    field :retry_count, :integer, default: 0
     field :delivered_at, :utc_datetime
 
     timestamps(type: :utc_datetime)

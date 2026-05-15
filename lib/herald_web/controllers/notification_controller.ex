@@ -6,9 +6,9 @@ defmodule NotificationService.NotificationController do
   def create(conn, params) do
     attrs = %{
       user_id: params["user_id"],
-      type:    params["type"],
-      title:   params["title"],
-      body:    params["body"],
+      type: params["type"],
+      title: params["title"],
+      body: params["body"],
       payload: params["payload"] || %{}
     }
 
@@ -32,19 +32,19 @@ defmodule NotificationService.NotificationController do
 
     case Notifications.requeue(notification) do
       {:ok, updated} -> json(conn, %{data: encode(updated)})
-      {:error, cs}   -> conn |> put_status(422) |> json(%{errors: format_errors(cs)})
+      {:error, cs} -> conn |> put_status(422) |> json(%{errors: format_errors(cs)})
     end
   end
 
   defp encode(n) do
     %{
-      id:          n.id,
-      user_id:     n.user_id,
-      type:        n.type,
-      title:       n.title,
-      body:        n.body,
-      payload:     n.payload,
-      status:      n.status,
+      id: n.id,
+      user_id: n.user_id,
+      type: n.type,
+      title: n.title,
+      body: n.body,
+      payload: n.payload,
+      status: n.status,
       retry_count: n.retry_count,
       inserted_at: DateTime.to_iso8601(n.inserted_at)
     }
