@@ -1,24 +1,23 @@
-defmodule NotificationService.Application do
+defmodule Herald.Application do
   use Application
 
   @impl true
   def start(_type, _args) do
     children = [
-      NotificationService.Repo,
-      NotificationService.DBListener,
-      {Phoenix.PubSub, name: NotificationService.PubSub},
-      {DynamicSupervisor, name: NotificationService.SessionSupervisor, strategy: :one_for_one},
-      NotificationService.Telemetry,
-      NotificationService.Endpoint
+      Herald.Repo,
+      Herald.DBListener,
+      {Phoenix.PubSub, name: Herald.PubSub},
+      {DynamicSupervisor, name: Herald.SessionSupervisor, strategy: :one_for_one},
+      HeraldWeb.Endpoint
     ]
 
-    opts = [strategy: :one_for_one, name: NotificationService.Supervisor]
+    opts = [strategy: :one_for_one, name: Herald.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
   @impl true
   def config_change(changed, _new, removed) do
-    NotificationService.Endpoint.config_change(changed, removed)
+    HeraldWeb.Endpoint.config_change(changed, removed)
     :ok
   end
 end
